@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory} from 'react-router';
 
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import promiseMiddleware from 'redux-promise';
 import { connect, Provider } from 'react-redux'
 
@@ -21,8 +21,8 @@ import ProductDetail from './components/ProductDetail';
 
 import reducer from './reducers/Reducers';
 
-console.log(reducer);
-const store = createStore(reducer, applyMiddleware(promiseMiddleware))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancers(applyMiddleware(promiseMiddleware)));
 const rootEl = document.getElementById('root')
 
 const render = () => ReactDOM.render(
