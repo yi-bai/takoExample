@@ -21,10 +21,7 @@ class ProductDetailUI extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return {
-		snackbarMessage: state.snackbarmessage,
-		snackbarOpen: state.snackbarmessage.length > 0
-	}
+	return {};
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

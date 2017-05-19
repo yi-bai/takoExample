@@ -21,6 +21,7 @@ import ProductDetail from './components/ProductDetail';
 
 import reducer from './reducers/Reducers';
 
+console.log(reducer);
 const store = createStore(reducer, applyMiddleware(promiseMiddleware))
 const rootEl = document.getElementById('root')
 

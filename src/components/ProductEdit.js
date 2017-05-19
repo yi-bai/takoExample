@@ -46,7 +46,7 @@ class ProductEditUI extends React.Component {
 	}
 
     render(){
-		let product = this.props.product;
+		let product = this.props.product || [];
 		let actions = [
 			<FlatButton
 				label="キャンセル"
