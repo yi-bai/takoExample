@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import { createTako } from './Tako';
 
 const userInfoReducer = (state = null, action) => {
 	console.debug(action);
