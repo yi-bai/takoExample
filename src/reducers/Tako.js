@@ -5,7 +5,6 @@ import assign from 'lodash/assign';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
-import { combineReducers } from 'redux';
 
 // lib
 const SEPARATOR = '.';

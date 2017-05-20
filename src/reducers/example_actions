@@ -1,0 +1,216 @@
+// initialization
+{
+  path: 'profile',
+  type: '__set',
+  payload: {
+    coverPhoto: {
+      id: '356',
+      photoUrl: 'http://coverPhoto'
+    },
+    avatarUrl: 'http://www.image.com/path.png',
+    firstName: 'Bai',
+    lastName: 'Yi',
+    country: 'USA',
+    aboutMe: 'About Me',
+    countUserFollowing: 6,
+    countUserFollower: 7,
+    countPhotoSaved: 8,
+    countPhotoUploaded: 9,
+    countLocationTaken: 10,
+    countLocationFollowing: 11,
+    countPin: 12,
+    countBlog: 13,
+    tags: [
+      {
+        id: '1',
+        tag: 'sb'
+      }
+    ],
+    equipments: [],
+    awards: []
+  }
+}
+
+// get user list and append
+{
+  path: 'userFollowings',
+  type: 'paginationList.set',
+  payload: {
+    pagination: {
+      pageNow: 2,
+      pageTotal: null,
+      countEachPage: 50
+    },
+    newEntry: [
+      {
+        id: '2',
+        avatarUrl: 'http',
+      },
+      {
+        id: '3',
+        avatarUrl: 'https',
+      }
+    ]
+  }
+}
+
+// set avatar
+{
+  path: 'profile.avatarUrl',
+  type: '__set',
+  payload: 'http://www.image.com/path.png'
+}
+
+// set user name
+{
+  path: 'profile',
+  type: '__assign',
+  payload: { firstName: 'Bai', lastName: 'Yi' }
+}
+
+// set about me
+{
+  path: 'profile.aboutMe',
+  type: '__set',
+  payload: '乳酸菌と酵母の生み出す力'
+}
+
+// add tag
+{
+  path: 'profile',
+  type: 'profile.addTag',
+  payload: { id: '3', tag: 'Macadamia' }
+}
+
+// delete tag
+{
+  path: 'profile',
+  type: 'profile.deleteTag',
+  payload: { id: '3', tag: 'Macadamia' }
+}
+
+// set tag suggestions
+{
+  path: 'profileInput.tagSuggestions',
+  type: '__set',
+  payload: [{ id: '1', tag: 'sb' }, { id: '3', tag: 'Macadamia' }]
+}
+
+// set user recommendations
+{
+  path: 'userSameTagList',
+  type: '__set',
+  payload: [
+    { id: '1', avatarUrl: 'http', isFollowing: false },
+    { id: '2', avatarUrl: 'http', isFollowing: true }
+  ]
+}
+
+{
+  path: 'userSameLocationList',
+  type: '__set',
+  payload: [
+    { id: '3', avatarUrl: 'http', isFollowing: true },
+    { id: '1', avatarUrl: 'http', isFollowing: false }
+  ]
+}
+
+{
+  path: 'userSameEquipmentList',
+  type: '__set',
+  payload: [
+    { id: '2', avatarUrl: 'http', isFollowing: true },
+    { id: '3', avatarUrl: 'http', isFollowing: true }
+  ]
+}
+
+{
+  path: 'userSearchList',
+  type: '__set',
+  payload: [
+    { id: '4', avatarUrl: 'http', isFollowing: true },
+    { id: '5', avatarUrl: 'http', isFollowing: true },
+    { id: '6', avatarUrl: 'http', isFollowing: true },
+    { id: '7', avatarUrl: 'http', isFollowing: true },
+    { id: '8', avatarUrl: 'http', isFollowing: true },
+    { id: '9', avatarUrl: 'http', isFollowing: true }
+  ]
+}
+
+// follow a user
+{
+  path: '',
+  type: 'setFollowUser',
+  payload: { id: "1", isFollowing: true }
+}
+
+// set saved photos
+{
+  path: 'photosSaved',
+  type: 'paginationList.set',
+  payload: {
+    pagination: {
+      pageNow: 2,
+      pageTotal: null,
+      countEachPage: 50
+    },
+    newEntry: [
+      {
+        id: '2',
+        photoUrl: 'http',
+        isLiked: false,
+        isSaved: false
+      },
+      {
+        id: '3',
+        photoUrl: 'https',
+        isLiked: false,
+        isSaved: false
+      }
+    ]
+  }
+}
+
+// like photos
+{
+  path: '',
+  type: 'setPhotoIsLiked',
+  payload: { id: '2', isLiked: true }
+}
+
+// save photos
+{
+  path: '',
+  type: 'setPhotoIsSaved',
+  payload: { id: '2', isSaved: true }
+}
+
+// set blogs
+{
+  path: 'blogs',
+  type: 'paginationList.set',
+  payload: {
+    pagination: {
+      pageNow: 2,
+      pageTotal: null,
+      countEachPage: 50
+    },
+    newEntry: [
+      {
+        id: '2',
+        author: null
+      },
+      {
+        id: '3',
+        author: null
+      }
+    ]
+  }
+}
+
+// delete blog
+{
+  path: '',
+  type: 'deleteBlog',
+  payload: { id: '2' }
+}
