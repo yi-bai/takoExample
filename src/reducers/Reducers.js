@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import { createRewpa } from '../../../rewpa/src';
+import { createRewpa } from 'rewpa';
 
 const paginationRewpa = createRewpa({ pageNow: null, pageTotal: null, countEachPage: null });
 const photoRewpa = createRewpa({ id: '', photoUrl: '', isSaved: false, isLiked: false });
