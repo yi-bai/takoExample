@@ -1,7 +1,6 @@
 // initialization
 {
-  path: 'profile',
-  type: '__set',
+  type: 'profile/__set',
   payload: {
     coverPhoto: {
       id: '356',
@@ -33,8 +32,7 @@
 
 // get user list and append
 {
-  path: 'userFollowings',
-  type: 'paginationList.set',
+  type: 'userFollowings/set',
   payload: {
     pagination: {
       pageNow: 2,
@@ -56,8 +54,7 @@
 
 // set avatar
 {
-  path: 'profile.avatarUrl',
-  type: '__set',
+  type: 'profile.avatarUrl/__set',
   payload: 'http://www.image.com/path.png'
 }
 
@@ -70,22 +67,19 @@
 
 // set about me
 {
-  path: 'profile.aboutMe',
-  type: '__set',
+  type: 'profile.aboutMe/__set',
   payload: '乳酸菌と酵母の生み出す力'
 }
 
 // add tag
 {
-  path: 'profile',
-  type: 'profile.addTag',
+  type: 'profile/addTag',
   payload: { id: '3', tag: 'Macadamia' }
 }
 
 // delete tag
 {
-  path: 'profile',
-  type: 'profile.deleteTag',
+  type: 'profile/deleteTag',
   payload: { id: '3', tag: 'Macadamia' }
 }
 
@@ -98,8 +92,7 @@
 
 // set user recommendations
 {
-  path: 'userSameTagList',
-  type: '__set',
+  type: 'userSameTagList/__set',
   payload: [
     { id: '1', avatarUrl: 'http', isFollowing: false },
     { id: '2', avatarUrl: 'http', isFollowing: true }
@@ -107,8 +100,7 @@
 }
 
 {
-  path: 'userSameLocationList',
-  type: '__set',
+  type: 'userSameLocationList/__set',
   payload: [
     { id: '3', avatarUrl: 'http', isFollowing: true },
     { id: '1', avatarUrl: 'http', isFollowing: false }
@@ -116,8 +108,7 @@
 }
 
 {
-  path: 'userSameEquipmentList',
-  type: '__set',
+  type: 'userSameEquipmentList/__set',
   payload: [
     { id: '2', avatarUrl: 'http', isFollowing: true },
     { id: '3', avatarUrl: 'http', isFollowing: true }
@@ -125,8 +116,7 @@
 }
 
 {
-  path: 'userSearchList',
-  type: '__set',
+  type: 'userSearchList/__set',
   payload: [
     { id: '4', avatarUrl: 'http', isFollowing: true },
     { id: '5', avatarUrl: 'http', isFollowing: true },
@@ -139,15 +129,13 @@
 
 // follow a user
 {
-  path: '',
   type: 'setFollowUser',
   payload: { id: "1", isFollowing: true }
 }
 
 // set saved photos
 {
-  path: 'photosSaved',
-  type: 'paginationList.set',
+  type: 'photosSaved/set',
   payload: {
     pagination: {
       pageNow: 2,
@@ -173,22 +161,19 @@
 
 // like photos
 {
-  path: '',
   type: 'setPhotoIsLiked',
   payload: { id: '2', isLiked: true }
 }
 
 // save photos
 {
-  path: '',
   type: 'setPhotoIsSaved',
   payload: { id: '2', isSaved: true }
 }
 
 // set blogs
 {
-  path: 'blogs',
-  type: 'paginationList.set',
+  type: 'blogs/set',
   payload: {
     pagination: {
       pageNow: 2,
@@ -210,7 +195,6 @@
 
 // delete blog
 {
-  path: '',
   type: 'deleteBlog',
   payload: { id: '2' }
 }

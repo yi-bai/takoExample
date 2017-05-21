@@ -1,46 +1,70 @@
 import {combineReducers} from 'redux';
 import { createRewpa } from 'rewpa';
 
-const paginationRewpa = createRewpa({ pageNow: null, pageTotal: null, countEachPage: null });
-const photoRewpa = createRewpa({ id: '', photoUrl: '', isSaved: false, isLiked: false });
-const tagRewpa = createRewpa({ id: '', tag: '' });
-const equipmentRewpa = createRewpa({ id: '', equipment: ''});
-const userRewpa = createRewpa({ id: '', avatarUrl: '', isFollowing: false, tags: [tagRewpa], equipments: [equipmentRewpa] });
-const locationRewpa = createRewpa({ id: '', lat: '', lng: ''});
-const pinRewpa = createRewpa({ lat: '', lng: '' });
-const blogRewpa = createRewpa({ id: '', author: userRewpa });
+const paginationRewpa = createRewpa(
+  { pageNow: null, pageTotal: null, countEachPage: null }
+);
+
+const photoRewpa = createRewpa(
+  { id: '', photoUrl: '', isSaved: false, isLiked: false }
+);
+
+const tagRewpa = createRewpa(
+  { id: '', tag: '' }
+);
+
+const equipmentRewpa = createRewpa(
+  { id: '', equipment: ''}
+);
+
+const userRewpa = createRewpa(
+  'User',
+  { id: '', avatarUrl: '', isFollowing: false, tags: [tagRewpa], equipments: [equipmentRewpa] }
+);
+
+const locationRewpa = createRewpa(
+  { id: '', lat: '', lng: ''}
+);
+
+const pinRewpa = createRewpa(
+  { lat: '', lng: '' }
+);
+
+const blogRewpa = createRewpa(
+  { id: '', author: userRewpa }
+);
 
 const profileRewpa = createRewpa(
-{
-  coverPhoto: photoRewpa,
-  avatarUrl: '',
-  firstName: '',
-  lastName: '',
-  country: '',
-  aboutMe: '',
-  countUserFollowing: 0,
-  countUserFollower: 0,
-  countPhotoSaved: 0,
-  countPhotoUploaded: 0,
-  countLocationTaken: 0,
-  countLocationFollowing: 0,
-  countPin: 0,
-  countBlog: 0,
-  tags: [tagRewpa],
-  equipments: [equipmentRewpa],
-  awards: ['']
-},
-(state, action, reduce) => {
-  switch(action.type){
-    case 'profile.addTag':
-      if(state.tags.map((e) => e.id).includes(action.payload.id)) return state;
-      return reduce({ path: 'tags', type: '__append', payload: action.payload });
-    case 'profile.deleteTag':
-      return reduce({ path: 'tags', type: '__remove', payload: (elem, index) => (elem.id == action.payload.id)});
-    default:
-      return state;
+  {
+    coverPhoto: photoRewpa,
+    avatarUrl: '',
+    firstName: '',
+    lastName: '',
+    country: '',
+    aboutMe: '',
+    countUserFollowing: 0,
+    countUserFollower: 0,
+    countPhotoSaved: 0,
+    countPhotoUploaded: 0,
+    countLocationTaken: 0,
+    countLocationFollowing: 0,
+    countPin: 0,
+    countBlog: 0,
+    tags: [tagRewpa],
+    equipments: [equipmentRewpa],
+    awards: ['']
+  },
+  (state, action, runActions) => {
+    switch(action.type){
+      case 'addTag':
+        if(state.tags.map((e) => e.id).includes(action.payload.id)) return state;
+        return runActions({ type: 'tags/__append', payload: action.payload });
+      case 'deleteTag':
+        return runActions({ type: 'tags/__remove', payload: (elem, index) => (elem.id == action.payload.id)});
+      default:
+        return state;
+    }
   }
-}
 );
 
 const profileInputRewpa = createRewpa({
@@ -55,12 +79,13 @@ const createPaginationListRewpa = (Rewpa) => {
       pagination: paginationRewpa,
       list: [Rewpa]
     },
-    (state, action, reduce) => {
+    (state, action, runActions) => {
       switch(action.type){
-        case 'paginationList.set':
-          state = reduce({ path: 'pagination', type: '__assign', payload: action.payload.pagination });
-          state = reduce({ path: 'list', type: '__append', payload: action.payload.newEntry });
-          return state;
+        case 'set':
+          return runActions(
+            { type: 'pagination/__assign', payload: action.payload.pagination },
+            { type: 'list/__append', payload: action.payload.newEntry }
+          );
         default:
           return state;
       }
@@ -68,55 +93,49 @@ const createPaginationListRewpa = (Rewpa) => {
   );
 };
 
+const userListRewpa = createRewpa('UserList', [userRewpa]);
+
 const reducer = createRewpa({
-  profile: profileRewpa,
-  profileInput: profileInputRewpa,
-  userFollowings: createPaginationListRewpa(userRewpa),
-  userFollowers: createPaginationListRewpa(userRewpa),
-  userSearchList: [userRewpa],
-  userSameTagList: [userRewpa],
-  userSameLocationList: [userRewpa],
-  userSameEquipmentList: [userRewpa],
-  photosSaved: createPaginationListRewpa(photoRewpa),
-  photosTaken: createPaginationListRewpa(photoRewpa),
-  locations: [locationRewpa],
-  pinList: [pinRewpa],
-  blogs: createPaginationListRewpa(blogRewpa),
-  loading: ''
+  profile:                profileRewpa,
+  profileInput:           profileInputRewpa,
+  userFollowings:         createPaginationListRewpa(userRewpa),
+  userFollowers:          createPaginationListRewpa(userRewpa),
+  userSearchList:         userListRewpa,
+  userSameTagList:        userListRewpa,
+  userSameLocationList:   userListRewpa,
+  userSameEquipmentList:  userListRewpa,
+  photosSaved:            createPaginationListRewpa(photoRewpa),
+  photosTaken:            createPaginationListRewpa(photoRewpa),
+  locations:              [locationRewpa],
+  pinList:                [pinRewpa],
+  blogs:                  createPaginationListRewpa(blogRewpa),
+  loading:                ''
 },
-(state, action, reduce) => {
+(state, action, runActions) => {
   switch(action.type){
     case 'setFollowUser':
-      state = reduce({
-        path: 'userSearchList,userSameTagList,userSameLocationList,userSameEquipmentList[?].isFollowing',
+      return runActions({
+        type: '..#UserList[?].isFollowing/__set',
         filter: (elem, index) => elem.id == action.payload.id,
-        type: '__set',
         payload: action.payload.isFollowing
       });
-      return state;
     case 'setPhotoIsLiked':
-      state = reduce({
-        path: 'photosSaved,photosTaken.list[?].isLiked',
+      return runActions({
+        type: 'photosSaved,photosTaken.list[?].isLiked/__set',
         filter: (elem) => elem.id == action.payload.id,
-        type: '__set',
         payload: action.payload.isLiked
       });
-      return state;
     case 'setPhotoIsSaved':
-      state = reduce({
-        path: 'photosSaved,photosTaken.list[?].isSaved',
+      return runActions({
+        type: 'photosSaved,photosTaken.list[?].isSaved/__set',
         filter: (elem) => elem.id == action.payload.id,
-        type: '__set',
         payload: action.payload.isSaved
       });
-      return state;
     case 'deleteBlog':
-      state = reduce({
-        path: 'blogs.list',
-        type: '__remove',
+      return runActions({
+        type: 'blogs.list/__remove',
         payload: (elem) => elem.id == action.payload.id
       });
-      return state;
     default:
       return state;
   }
